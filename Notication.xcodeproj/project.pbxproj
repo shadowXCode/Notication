@@ -13,6 +13,9 @@
 		5D052730225F39420099DB88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D05272F225F39420099DB88 /* Assets.xcassets */; };
 		5D052733225F39420099DB88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D052731225F39420099DB88 /* LaunchScreen.storyboard */; };
 		5D052736225F39420099DB88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D052735225F39420099DB88 /* main.m */; };
+		5D052740226038740099DB88 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D05273F226038740099DB88 /* UserNotifications.framework */; };
+		5D05274522606BA20099DB88 /* HBOAAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D05274222606BA20099DB88 /* HBOAAlertView.xib */; };
+		5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D05274322606BA20099DB88 /* HBOAAlertView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,11 @@
 		5D052734225F39420099DB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D052735225F39420099DB88 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5D05273C225F3C8B0099DB88 /* Notication.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notication.entitlements; sourceTree = "<group>"; };
+		5D05273F226038740099DB88 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		5D05274222606BA20099DB88 /* HBOAAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBOAAlertView.xib; sourceTree = "<group>"; };
+		5D05274322606BA20099DB88 /* HBOAAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBOAAlertView.m; sourceTree = "<group>"; };
+		5D05274422606BA20099DB88 /* HBOAAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBOAAlertView.h; sourceTree = "<group>"; };
+		5D05274822606F140099DB88 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D052740226038740099DB88 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +54,7 @@
 			children = (
 				5D052725225F39410099DB88 /* Notication */,
 				5D052724225F39410099DB88 /* Products */,
+				5D05273E226038730099DB88 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,12 +75,32 @@
 				5D052729225F39410099DB88 /* ViewController.h */,
 				5D05272A225F39410099DB88 /* ViewController.m */,
 				5D05272C225F39410099DB88 /* Main.storyboard */,
+				5D05274122606BA20099DB88 /* HBOAAlert */,
 				5D05272F225F39420099DB88 /* Assets.xcassets */,
 				5D052731225F39420099DB88 /* LaunchScreen.storyboard */,
 				5D052734225F39420099DB88 /* Info.plist */,
 				5D052735225F39420099DB88 /* main.m */,
+				5D05274822606F140099DB88 /* PrefixHeader.pch */,
 			);
 			path = Notication;
+			sourceTree = "<group>";
+		};
+		5D05273E226038730099DB88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5D05273F226038740099DB88 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D05274122606BA20099DB88 /* HBOAAlert */ = {
+			isa = PBXGroup;
+			children = (
+				5D05274422606BA20099DB88 /* HBOAAlertView.h */,
+				5D05274322606BA20099DB88 /* HBOAAlertView.m */,
+				5D05274222606BA20099DB88 /* HBOAAlertView.xib */,
+			);
+			path = HBOAAlert;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +171,7 @@
 				5D052733225F39420099DB88 /* LaunchScreen.storyboard in Resources */,
 				5D052730225F39420099DB88 /* Assets.xcassets in Resources */,
 				5D05272E225F39410099DB88 /* Main.storyboard in Resources */,
+				5D05274522606BA20099DB88 /* HBOAAlertView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +185,7 @@
 				5D05272B225F39410099DB88 /* ViewController.m in Sources */,
 				5D052736225F39420099DB88 /* main.m in Sources */,
 				5D052728225F39410099DB88 /* AppDelegate.m in Sources */,
+				5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +330,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notication/Notication.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJH4F5UWPP;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Notication/PrefixHeader.pch";
 				INFOPLIST_FILE = Notication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,6 +350,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notication/Notication.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJH4F5UWPP;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Notication/PrefixHeader.pch";
 				INFOPLIST_FILE = Notication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
