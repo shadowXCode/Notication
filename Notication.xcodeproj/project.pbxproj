@@ -16,6 +16,7 @@
 		5D052740226038740099DB88 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D05273F226038740099DB88 /* UserNotifications.framework */; };
 		5D05274522606BA20099DB88 /* HBOAAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D05274222606BA20099DB88 /* HBOAAlertView.xib */; };
 		5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D05274322606BA20099DB88 /* HBOAAlertView.m */; };
+		5D05274B2264A4AA0099DB88 /* HBLogProfiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		5D05274322606BA20099DB88 /* HBOAAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBOAAlertView.m; sourceTree = "<group>"; };
 		5D05274422606BA20099DB88 /* HBOAAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBOAAlertView.h; sourceTree = "<group>"; };
 		5D05274822606F140099DB88 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5D0527492264A4AA0099DB88 /* HBLogProfiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBLogProfiler.h; sourceTree = "<group>"; };
+		5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBLogProfiler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,8 @@
 				5D052727225F39410099DB88 /* AppDelegate.m */,
 				5D052729225F39410099DB88 /* ViewController.h */,
 				5D05272A225F39410099DB88 /* ViewController.m */,
+				5D0527492264A4AA0099DB88 /* HBLogProfiler.h */,
+				5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */,
 				5D05272C225F39410099DB88 /* Main.storyboard */,
 				5D05274122606BA20099DB88 /* HBOAAlert */,
 				5D05272F225F39420099DB88 /* Assets.xcassets */,
@@ -186,6 +191,7 @@
 				5D052736225F39420099DB88 /* main.m in Sources */,
 				5D052728225F39410099DB88 /* AppDelegate.m in Sources */,
 				5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */,
+				5D05274B2264A4AA0099DB88 /* HBLogProfiler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
