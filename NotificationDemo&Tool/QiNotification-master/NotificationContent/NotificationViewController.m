@@ -88,9 +88,10 @@
     } else {
         
     }
-    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);//移除通知弹框，并且执行事件（会唤醒app执行事件，会传递response）
+    
+    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);//移除通知弹框，并且执行事件（会唤醒app执行事件，会传递UNTextInputNotificationResponse）
 //    completion(UNNotificationContentExtensionResponseOptionDismiss);//移除通知弹框，不做任何操作（不会唤醒app执行事件）
-//    completion(UNNotificationContentExtensionResponseOptionDoNotDismiss);//不做任何操作（当点击右上角关闭通知时会唤醒app执行事件，不会传递response）
+//    completion(UNNotificationContentExtensionResponseOptionDoNotDismiss);//不做任何操作（关闭通知时会唤醒app执行事件，不会传递UNTextInputNotificationResponse；哪怕对应action的options设定为UNNotificationActionOptionForeground也不会响应）
 }
 
 /**

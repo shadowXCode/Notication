@@ -12,3 +12,5 @@ iOS Notification
 [玩转 iOS 10 推送 —— UserNotifications Framework（下）](https://www.jianshu.com/p/25ca24215f75)
 
 [iOS 10 消息推送（UserNotifications）秘籍总结（二）](https://www.jianshu.com/p/81c6bd16c7ac)
+
+[APNs Auth Key Token 验证模式](https://www.jianshu.com/p/b700f0237b0e)

@@ -7,7 +7,7 @@
 //
 
 #import "NotificationService.h"
-#import <AVFoundation/AVFoundation.h>
+//#import <AVFoundation/AVFoundation.h>
 
 @interface NotificationService ()
 
@@ -31,7 +31,7 @@
     UNNotificationAction * actionC = [UNNotificationAction actionWithIdentifier:@"ActionC" title:@"C_Foreground" options:UNNotificationActionOptionForeground];
     UNTextInputNotificationAction * actionD = [UNTextInputNotificationAction actionWithIdentifier:@"ActionD"
                                                                                             title:@"D_InputDestructive"
-                                                                                          options:UNNotificationActionOptionDestructive
+                                                                                          options:UNNotificationActionOptionForeground
                                                                              textInputButtonTitle:@"Send"
                                                                              textInputPlaceholder:@"input some words here ..."];
     NSArray *actionArr = [[NSArray alloc] initWithObjects:actionA, actionB, actionC, actionD, nil];
@@ -43,7 +43,7 @@
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:notficationCategory]];
     
     // 设置categoryIdentifier
-    self.bestAttemptContent.categoryIdentifier = @"QiShareCategoryIdentifier";
+//    self.bestAttemptContent.categoryIdentifier = @"QiShareCategoryIdentifier";
     
     // 加载网络请求
     NSDictionary *userInfo =  self.bestAttemptContent.userInfo;
@@ -96,7 +96,6 @@
 }
 
 - (NSString *)getfileExtWithMediaType:(NSString *)mediaType {
-    
     NSString *fileExt = mediaType;
     if ([mediaType isEqualToString:@"image"]) {
         fileExt = @"jpg";

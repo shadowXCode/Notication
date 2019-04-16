@@ -20,6 +20,25 @@
  
 */
 
+/**
+ 推送的json数据以下简称payload
+ 发送一个远程推送到用户设备通过payload传递信息，推送类型有alert、sound、badge、silent四种均通过payload数据进行控制。
+ 如果音频大小超过5k、payload数据大小超过4k，则不会进行推送。
+ payload数据结构中除了苹果定义的keys，开发者可以自定义keys，自定义的keys在UNNotificationContent中userInfo属性中。
+ sound字段中的音频文件必须是在设备中已存在的或者app的bundle中存在的。
+ 避免在推送payload中放入一些敏感字段，防止信息泄露；如果迫不得已，需要对该信息进行加密。
+ 官方已定义keys可参考文档有：https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification
+ 
+ 
+ 
+ 本地推送和远程推送同时都可支持附带Media Attachments。不过远程通知需要实现通知服务扩展UNNotificationServiceExtension，在service extension里面去下载attachment，但是需要注意，service extension会限制下载的时间（30s），并且下载的文件大小也会同样被限制
+ 关于Media Attachments限制可参考：https://developer.apple.com/documentation/usernotifications/unnotificationattachment?preferredLanguage=occ
+ 
+ 
+ 
+ */
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -27,4 +46,5 @@
 
 
 @end
+NS_ASSUME_NONNULL_END
 
