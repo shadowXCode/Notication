@@ -72,13 +72,13 @@
     if (@available(iOS 10.0, *)) {
         // 1.创建通知内容
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-        [content setValue:@(YES) forKeyPath:@"shouldAlwaysAlertWhileAppIsForeground"];
+//        [content setValue:@(YES) forKeyPath:@"shouldAlwaysAlertWhileAppIsForeground"];//iOS12 已被移除
         content.sound = [UNNotificationSound defaultSound];
         content.title = title;
         content.subtitle = subTitle;
         content.body = body;
         content.badge = @(badge);
-        content.categoryIdentifier = @"Dely_locationCategory";
+
         content.userInfo = userInfo;
 
         // 2.设置通知附件内容
@@ -99,8 +99,8 @@
 
         // 4.设置UNNotificationRequest
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:LocalNotiReqIdentifer content:content trigger:trigger];
-        
-//        [ViewController addNotificationAction];
+        content.categoryIdentifier = @"Dely_locationCategory";
+        [ViewController addNotificationAction];
         //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
         [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             
