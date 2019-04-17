@@ -22,7 +22,7 @@
  */
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+
     NSDictionary *notificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (notificationUserInfo) {
         NSLog(@"%@ : %@",NSStringFromSelector(_cmd),notificationUserInfo);
@@ -30,17 +30,18 @@
             [HBOAAlertView alertMessage:NSStringFromSelector(_cmd) delay:2];
         });
     }
-    
+
     [self registerRemoteNotifications];
-    
-    
+
+
     if (@available(iOS 10.0, *)) {
         //获取通知配置信息
         [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-            
+
         }];
     }
-    
+
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     return YES;
 }
 
@@ -83,7 +84,7 @@
 #pragma mark - 推送通知注册
 /**
  注册远程推送通知，同本地通知注册，不同的是远程推送通知授权成功时候需要调用：[[UIApplication sharedApplication] registerForRemoteNotifications];
- 
+
  权限申请：
  iOS10以后，权限申请通过requestAuthorizationWithOptions进行
  iOS8---iOS10以下，权限申请回调通过UIApplicationDelegate的- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings代理方法进行告知应用
@@ -118,7 +119,7 @@
  只要应用启动注册通知，每次都会调用该方法
  */
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings NS_DEPRECATED_IOS(8_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenter requestAuthorizationWithOptions:completionHandler:]") __TVOS_PROHIBITED;{
-    
+
 }
 
 /**
@@ -137,7 +138,7 @@
  只要应用启动注册通知失败，每次都会调用该方法
  */
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    
+
 }
 
 #pragma mark - 收到通知
@@ -148,7 +149,7 @@
  若本地通知有自定义action事件，点击对应action事件，不会回调该代理
  */
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification NS_DEPRECATED_IOS(4_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate willPresentNotification:withCompletionHandler:] or -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]") __TVOS_PROHIBITED; {
-    
+
 }
 
 /**
@@ -167,7 +168,7 @@
  此方法与application:didReceiveRemoteNotification（简称方法一）还是有些不同，当两个方法都实现的情况下，方法一并不会被调用，所以iOS8--iOS10以下系统适配只需要实现该方法即可。
  注意：当用户通过点击通知栏的通知打开app，系统还是会再次调用该方法，以方便开发者处理事件
  系统版本>=iOS10，如果没有实现UNUserNotificationCenterDelegate代理则会通过该代理进行远程通知回调；如果实现了UNUserNotificationCenterDelegate，则不会调用该方法。
- 
+
  当推送内容设定了"content-available" : 1，会调用该代理方法，哪怕app进程不存在也会唤醒app（限制30s）
  需要在Capabilities中开启Background Modes勾选Remote notifications
  官方文档：https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/pushing_updates_to_your_app_silently
@@ -185,14 +186,14 @@
     [self handleRemoteNotification:userInfo completionHandler:^{
         completionHandler(UIBackgroundFetchResultNewData);
     } cmdStr:NSStringFromSelector(_cmd)];
-    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 
 //iOS>=10 中收到推送消息（远程/本地），遵守UNUserNotificationCenterDelegate。
 /**
  处理app在前台运行时到达的通知，这是通知并未提示，当处理完成后执行completionHandler来确定通知样式
- 
+
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 API_AVAILABLE(ios(10.0)){
@@ -204,7 +205,7 @@ API_AVAILABLE(ios(10.0)){
 }
 /**
  本地、远程推送，点击通知进入app或者点击通知上的自定义action时触发，会唤醒app进行事件处理
- 
+
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 API_AVAILABLE(ios(10.0)){
@@ -213,6 +214,7 @@ API_AVAILABLE(ios(10.0)){
         NSLog(@"%@ : %@",NSStringFromSelector(_cmd),userInfo);
     }
     completionHandler();
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 
@@ -233,14 +235,14 @@ API_AVAILABLE(ios(10.0)){
  iOS10及以上系统若未实现 -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:] 则还会回调该代理进行处理事件
  */
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void(^)())completionHandler NS_DEPRECATED_IOS(8_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]") __TVOS_PROHIBITED;{
-    
+
 }
 /**
  iOS9系统下本地推送点击action，回调该代理进行事件处理。
  iOS10及以上系统如果未实现UNUserNotificationCenterDelegate则还会回调该代理进行处理事件
  */
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forLocalNotification:(UILocalNotification *)notification withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void(^)())completionHandler NS_DEPRECATED_IOS(9_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]") __TVOS_PROHIBITED;{
-    
+
 }
 
 //远程推送
@@ -253,14 +255,14 @@ API_AVAILABLE(ios(10.0)){
  iOS10及以上系统若未实现 -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:] 则还会回调该代理进行处理事件
  */
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler NS_DEPRECATED_IOS(8_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]") __TVOS_PROHIBITED;{
-    
+
 }
 /**
  iOS9系统下远程推送点击action，回调该代理进行事件处理。
  iOS10及以上系统如果未实现UNUserNotificationCenterDelegate则还会回调该代理进行处理事件
  */
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void(^)())completionHandler NS_DEPRECATED_IOS(9_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]") __TVOS_PROHIBITED;{
-    
+
 }
 #pragma clang diagnostic pop
 
@@ -296,8 +298,8 @@ API_AVAILABLE(ios(10.0)){
         {
             //应用程序在后台运行。
             NSLog(@"UIApplicationStateBackground");
-//            [HBOAAlertView alertMessage:@"UIApplicationStateBackground" delay:5];
-            
+            //            [HBOAAlertView alertMessage:@"UIApplicationStateBackground" delay:5];
+
             [self saveText:[NSString stringWithFormat:@"%@ : %@",cmdStr,userInfo]];
         }
             break;
@@ -315,10 +317,11 @@ API_AVAILABLE(ios(10.0)){
     if (!res) {
         return;
     }
-    
+
     NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:filePath];
     [handle writeData:[text dataUsingEncoding:NSUTF8StringEncoding]];
     [handle closeFile];
 }
 
 @end
+

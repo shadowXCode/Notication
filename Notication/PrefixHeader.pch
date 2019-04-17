@@ -14,7 +14,7 @@
 
 
 #import "HBOAAlertView.h"
-
+#import "HBLogProfiler.h"
 
 
 #endif /* PrefixHeader_pch */

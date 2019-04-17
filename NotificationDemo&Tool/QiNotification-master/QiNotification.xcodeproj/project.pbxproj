@@ -90,6 +90,7 @@
 		14B1A012215FA6B3009CC542 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14FD3E0121523F9000ED657C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5D05273D2260250E0099DB88 /* NotificationContent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContent.entitlements; sourceTree = "<group>"; };
+		5D0527742266CEDC0099DB88 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +178,7 @@
 		14B19FF6215F927B009CC542 /* NotificationService */ = {
 			isa = PBXGroup;
 			children = (
+				5D0527742266CEDC0099DB88 /* NotificationService.entitlements */,
 				14B19FF7215F927B009CC542 /* NotificationService.h */,
 				14B1A001215F929F009CC542 /* NotificationService.m */,
 				14B19FFA215F927B009CC542 /* Info.plist */,
@@ -274,6 +276,11 @@
 					};
 					14B19FF4215F927B009CC542 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					14B1A007215FA6B3009CC542 = {
 						CreatedOnToolsVersion = 10.0;
@@ -559,6 +566,7 @@
 		14B19FFF215F927B009CC542 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QG479838Q3;
@@ -581,6 +589,7 @@
 		14B1A000215F927B009CC542 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QG479838Q3;

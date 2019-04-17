@@ -10,7 +10,7 @@
 
 /**
  iOS远程推送
- 1、远程推送原理
+ 1、远程推送原理，推送证书配置的两种方式
  2、远程推送注册、接收远程推送，代码解读（iOS8以上）
  3、如何进行后台静默推送，干一些事情
  4、推送扩展的作用
@@ -29,12 +29,20 @@
  避免在推送payload中放入一些敏感字段，防止信息泄露；如果迫不得已，需要对该信息进行加密。
  官方已定义keys可参考文档有：https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification
  
+ 关于silent推送：
+ APNS去掉alert、badge、sound字段实现静默推送，增加增加字段"content-available":1，也可以在后台做一些事情。
  
  
  本地推送和远程推送同时都可支持附带Media Attachments。不过远程通知需要实现通知服务扩展UNNotificationServiceExtension，在service extension里面去下载attachment，但是需要注意，service extension会限制下载的时间（30s），并且下载的文件大小也会同样被限制
  关于Media Attachments限制可参考：https://developer.apple.com/documentation/usernotifications/unnotificationattachment?preferredLanguage=occ
  
  
+ 
+ 1、怎么设置进行通知栏消息合并、分组，有哪些限制？
+ iOS12才能进行通知分组，在通知设置页面可以进行设定。在自动模式下会按照UNMutableNotificationContent中的threadIdentifier进行分组
+ 2、为何debug模式下远程推送侧滑没有管理按钮？
+ 3、trigger类型整理
+ 4、payload中系统默认字段整理以及含义
  
  */
 

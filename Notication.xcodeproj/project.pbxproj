@@ -22,8 +22,14 @@
 		5D0527632265DB1A0099DB88 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D05273F226038740099DB88 /* UserNotifications.framework */; };
 		5D0527652265DB1A0099DB88 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0527642265DB1A0099DB88 /* UserNotificationsUI.framework */; };
 		5D0527692265DB1B0099DB88 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0527682265DB1B0099DB88 /* NotificationViewController.m */; };
-		5D05276C2265DB1B0099DB88 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D05276A2265DB1B0099DB88 /* MainInterface.storyboard */; };
 		5D0527702265DB1B0099DB88 /* NotificationContent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5D0527622265DB1A0099DB88 /* NotificationContent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5DC796362266EAA900C9CECD /* logo_img_02@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796302266EAA900C9CECD /* logo_img_02@3x.png */; };
+		5DC796372266EAA900C9CECD /* logo_img_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796312266EAA900C9CECD /* logo_img_02@2x.png */; };
+		5DC796382266EAA900C9CECD /* sound01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796322266EAA900C9CECD /* sound01.wav */; };
+		5DC796392266EAA900C9CECD /* sound02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796332266EAA900C9CECD /* sound02.wav */; };
+		5DC7963A2266EAA900C9CECD /* logo_img_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796342266EAA900C9CECD /* logo_img_01@2x.png */; };
+		5DC7963B2266EAA900C9CECD /* logo_img_01@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796352266EAA900C9CECD /* logo_img_01@3x.png */; };
+		5DC796412267135700C9CECD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DC7963F2267135700C9CECD /* MainInterface.storyboard */; };
 		E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -86,8 +92,14 @@
 		5D0527642265DB1A0099DB88 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		5D0527672265DB1B0099DB88 /* NotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		5D0527682265DB1B0099DB88 /* NotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
-		5D05276B2265DB1B0099DB88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5D05276D2265DB1B0099DB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DC796302266EAA900C9CECD /* logo_img_02@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_02@3x.png"; sourceTree = "<group>"; };
+		5DC796312266EAA900C9CECD /* logo_img_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_02@2x.png"; sourceTree = "<group>"; };
+		5DC796322266EAA900C9CECD /* sound01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound01.wav; sourceTree = "<group>"; };
+		5DC796332266EAA900C9CECD /* sound02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound02.wav; sourceTree = "<group>"; };
+		5DC796342266EAA900C9CECD /* logo_img_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_01@2x.png"; sourceTree = "<group>"; };
+		5DC796352266EAA900C9CECD /* logo_img_01@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_01@3x.png"; sourceTree = "<group>"; };
+		5DC796402267135700C9CECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E95D5FA0226629EA00CA0D92 /* LocalNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalNotificationViewController.h; sourceTree = "<group>"; };
 		E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +165,7 @@
 				E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */,
 				5D0527492264A4AA0099DB88 /* HBLogProfiler.h */,
 				5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */,
+				5DC7962F2266EAA900C9CECD /* Resource */,
 				5D05274122606BA20099DB88 /* HBOAAlert */,
 				5D05272C225F39410099DB88 /* Main.storyboard */,
 				5D05272F225F39420099DB88 /* Assets.xcassets */,
@@ -198,10 +211,23 @@
 			children = (
 				5D0527672265DB1B0099DB88 /* NotificationViewController.h */,
 				5D0527682265DB1B0099DB88 /* NotificationViewController.m */,
-				5D05276A2265DB1B0099DB88 /* MainInterface.storyboard */,
+				5DC7963F2267135700C9CECD /* MainInterface.storyboard */,
 				5D05276D2265DB1B0099DB88 /* Info.plist */,
 			);
 			path = NotificationContent;
+			sourceTree = "<group>";
+		};
+		5DC7962F2266EAA900C9CECD /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5DC796302266EAA900C9CECD /* logo_img_02@3x.png */,
+				5DC796312266EAA900C9CECD /* logo_img_02@2x.png */,
+				5DC796322266EAA900C9CECD /* sound01.wav */,
+				5DC796332266EAA900C9CECD /* sound02.wav */,
+				5DC796342266EAA900C9CECD /* logo_img_01@2x.png */,
+				5DC796352266EAA900C9CECD /* logo_img_01@3x.png */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,9 +309,19 @@
 					};
 					5D052750226561EF0099DB88 = {
 						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					5D0527612265DB1A0099DB88 = {
 						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -314,7 +350,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DC7963A2266EAA900C9CECD /* logo_img_01@2x.png in Resources */,
 				5D052733225F39420099DB88 /* LaunchScreen.storyboard in Resources */,
+				5DC796372266EAA900C9CECD /* logo_img_02@2x.png in Resources */,
+				5DC7963B2266EAA900C9CECD /* logo_img_01@3x.png in Resources */,
+				5DC796392266EAA900C9CECD /* sound02.wav in Resources */,
+				5DC796362266EAA900C9CECD /* logo_img_02@3x.png in Resources */,
+				5DC796382266EAA900C9CECD /* sound01.wav in Resources */,
 				5D052730225F39420099DB88 /* Assets.xcassets in Resources */,
 				5D05272E225F39410099DB88 /* Main.storyboard in Resources */,
 				5D05274522606BA20099DB88 /* HBOAAlertView.xib in Resources */,
@@ -332,7 +374,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D05276C2265DB1B0099DB88 /* MainInterface.storyboard in Resources */,
+				5DC796412267135700C9CECD /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,10 +442,10 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		5D05276A2265DB1B0099DB88 /* MainInterface.storyboard */ = {
+		5DC7963F2267135700C9CECD /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5D05276B2265DB1B0099DB88 /* Base */,
+				5DC796402267135700C9CECD /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -569,6 +611,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJH4F5UWPP;
 				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -587,6 +630,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJH4F5UWPP;
 				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -605,6 +649,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJH4F5UWPP;
 				INFOPLIST_FILE = NotificationContent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -623,6 +668,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJH4F5UWPP;
 				INFOPLIST_FILE = NotificationContent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

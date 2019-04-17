@@ -97,10 +97,12 @@
         // 3.触发模式
         UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:timeInteval repeats:NO];
 
-        // 4.设置UNNotificationRequest
-        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:LocalNotiReqIdentifer content:content trigger:trigger];
         content.categoryIdentifier = @"Dely_locationCategory";
         [ViewController addNotificationAction];
+        
+        // 4.设置UNNotificationRequest
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:LocalNotiReqIdentifer content:content trigger:trigger];
+        
         //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
         [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             
@@ -168,7 +170,7 @@
     // * actions 操作数组
     // * intentIdentifiers 意图标识符 可在 <Intents/INIntentIdentifiers.h> 中查看，主要是针对电话、carplay 等开放的 API。
     // * options 通知选项 枚举类型 也是为了支持 carplay
-    UNNotificationCategory *notificationCategory = [UNNotificationCategory categoryWithIdentifier:@"Dely_locationCategory" actions:@[lookAction, joinAction, cancelAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction | UNNotificationCategoryOptionHiddenPreviewsShowTitle | UNNotificationCategoryOptionHiddenPreviewsShowSubtitle];
+    UNNotificationCategory *notificationCategory = [UNNotificationCategory categoryWithIdentifier:@"Dely_locationCategory" actions:@[lookAction, joinAction, cancelAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
     
     // 将 category 添加到通知中心
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];

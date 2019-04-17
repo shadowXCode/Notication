@@ -31,7 +31,7 @@
         <!--Local Notification View Controller-->
         <scene sceneID="tYt-A1-stR">
             <objects>
-                <viewController id="lEq-2O-aax" customClass="LocalNotificationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocalNotificationViewController" id="lEq-2O-aax" customClass="LocalNotificationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AnU-Ih-KdG"/>
                         <viewControllerLayoutGuide type="bottom" id="NjA-jN-bg6"/>

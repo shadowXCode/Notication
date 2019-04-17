@@ -23,7 +23,7 @@
     self.bestAttemptContent = [request.content mutableCopy];
     
     // Modify the notification content here...
-    self.bestAttemptContent.title = [NSString stringWithFormat:@"[modified]：%@", self.bestAttemptContent.title];
+//    self.bestAttemptContent.title = [NSString stringWithFormat:@"啊啊啊[modified]：%@", self.bestAttemptContent.title];
     
     //设置category 要保证注册的categorys中有self.bestAttemptContent.categoryIdentifier，远程推送过来payload数据会自动转换为UNNotificationContent对象
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:[NotificationService notificationCategoryExampleWithIdentifier:[NotificationService inviteCategoryIdentifier]]]];
@@ -43,6 +43,7 @@
             self.contentHandler(self.bestAttemptContent);
         }];
     }
+    
 }
 
 - (void)serviceExtensionTimeWillExpire {
@@ -55,11 +56,11 @@
 #pragma mark - custom methods
 
 - (void)loadAttachmentForUrlString:(NSString *)urlStr withType:(NSString *)type completionHandle:(void(^)(UNNotificationAttachment *attach))completionHandler {
-    
+
     __block UNNotificationAttachment *attachment = nil;
     NSURL *attachmentURL = [NSURL URLWithString:urlStr];
     NSString *fileExt = [self getfileExtWithMediaType:type];
-    
+
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     [[session downloadTaskWithURL:attachmentURL completionHandler:^(NSURL *temporaryFileLocation, NSURLResponse *response, NSError *error) {
         if (error) {
@@ -68,12 +69,12 @@
             NSFileManager *fileManager = [NSFileManager defaultManager];
             NSURL *localURL = [NSURL fileURLWithPath:[temporaryFileLocation.path stringByAppendingString:fileExt]];
             [fileManager moveItemAtURL:temporaryFileLocation toURL:localURL error:&error];
-            
+
             // 自定义推送UI需要
             NSMutableDictionary * dict = [self.bestAttemptContent.userInfo mutableCopy];
             [dict setObject:[NSData dataWithContentsOfURL:localURL] forKey:@"image"];
             self.bestAttemptContent.userInfo = dict;
-            
+
             NSError *attachmentError = nil;
             attachment = [UNNotificationAttachment attachmentWithIdentifier:[NotificationService inviteCategoryIdentifier]
                                                                         URL:localURL
@@ -103,19 +104,20 @@
 
 
 + (NSString *)inviteCategoryIdentifier {
-    return @"InviteCategoryIdentifier";
+//    return @"QiShareCategoryIdentifier";
+    return @"UNInviteCategoryIdentifier";
 }
 
 + (UNNotificationCategory *)notificationCategoryExampleWithIdentifier:(NSString *)identifier {
     //action中的标识符不可重复，哪怕不在同一个category下。每组category中的action最多不能超过4个
     
-    UNNotificationAction *actionA = [UNNotificationAction actionWithIdentifier:@"actionA" title:@"接受邀请" options:UNNotificationActionOptionAuthenticationRequired];//UNNotificationActionOptionAuthenticationRequired 黑色文字，需要解锁显示，点击不会进app。
+    UNNotificationAction *actionA = [UNNotificationAction actionWithIdentifier:@"ActionA" title:@"接受邀请" options:UNNotificationActionOptionAuthenticationRequired];//UNNotificationActionOptionAuthenticationRequired 黑色文字，需要解锁显示，点击不会进app。
     
-    UNNotificationAction *actionB = [UNNotificationAction actionWithIdentifier:@"actionB" title:@"查看邀请" options:UNNotificationActionOptionForeground];//UNNotificationActionOptionForeground 黑色文字。点击会进app。
+    UNNotificationAction *actionB = [UNNotificationAction actionWithIdentifier:@"ActionB" title:@"查看邀请" options:UNNotificationActionOptionForeground];//UNNotificationActionOptionForeground 黑色文字。点击会进app。
     
-    UNTextInputNotificationAction *inputAction = [UNTextInputNotificationAction actionWithIdentifier:@"inputAction" title:@"回复" options:UNNotificationActionOptionAuthenticationRequired textInputButtonTitle:@"发送" textInputPlaceholder:@"input some words here ..."];
+    UNTextInputNotificationAction *inputAction = [UNTextInputNotificationAction actionWithIdentifier:@"InputAction" title:@"回复" options:UNNotificationActionOptionAuthenticationRequired textInputButtonTitle:@"发送" textInputPlaceholder:@"input some words here ..."];
     
-    UNNotificationAction *cancelAction = [UNNotificationAction actionWithIdentifier:@"cancelAction" title:@"取消" options:UNNotificationActionOptionDestructive];//UNNotificationActionOptionDestructive 红色文字。点击不会进app。
+    UNNotificationAction *cancelAction = [UNNotificationAction actionWithIdentifier:@"CancelAction" title:@"取消" options:UNNotificationActionOptionDestructive];//UNNotificationActionOptionDestructive 红色文字。点击不会进app。
     
     /**
      + (instancetype)categoryWithIdentifier:(NSString *)identifier actions:(NSArray<UNNotificationAction *> *)actions intentIdentifiers:(NSArray<NSString *> *)intentIdentifiers options:(UNNotificationCategoryOptions)options;

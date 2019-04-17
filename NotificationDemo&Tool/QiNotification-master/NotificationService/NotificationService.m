@@ -42,11 +42,9 @@
                                                                                           options:UNNotificationCategoryOptionCustomDismissAction];
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:notficationCategory]];
     
-    // 设置categoryIdentifier
-//    self.bestAttemptContent.categoryIdentifier = @"QiShareCategoryIdentifier";
     
     // 加载网络请求
-    NSDictionary *userInfo =  self.bestAttemptContent.userInfo;
+    NSDictionary *userInfo = self.bestAttemptContent.userInfo;
     NSString *mediaUrl = userInfo[@"media"][@"url"];
     NSString *mediaType = userInfo[@"media"][@"type"];
     if (!mediaUrl.length) {
