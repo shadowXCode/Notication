@@ -16,7 +16,6 @@
 @end
 
 
-//多个NotificationCategories在info.plist中该如何配置????
 @implementation NotificationService
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
@@ -129,8 +128,8 @@
      UNNotificationCategoryOptions各种类型下含义
      UNNotificationCategoryOptionCustomDismissAction 是否在action执行完后回调UNUserNotificationCenterDelegate
      UNNotificationCategoryOptionAllowInCarPlay 是否允许在CarPlay中进行此类通知
-     UNNotificationCategoryOptionHiddenPreviewsShowTitle    如果用户已关闭预览，是否显示标题
-     UNNotificationCategoryOptionHiddenPreviewsShowSubtitle 如果用户已关闭预览，是否显示副标题
+     UNNotificationCategoryOptionHiddenPreviewsShowTitle    如果用户已关闭预览，是否显示标题 ？待实践
+     UNNotificationCategoryOptionHiddenPreviewsShowSubtitle 如果用户已关闭预览，是否显示副标题 ?待实践
      */
     UNNotificationCategory *notificationCategory = [UNNotificationCategory categoryWithIdentifier:identifier actions:@[actionA,actionB,inputAction,cancelAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
     return notificationCategory;

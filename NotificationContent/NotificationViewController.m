@@ -25,6 +25,11 @@
 
 - (void)didReceiveNotification:(UNNotification *)notification {
     self.label.text = notification.request.content.body;
+    
+}
+
+- (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption option))completion;{
+    
 }
 
 @end

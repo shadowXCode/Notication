@@ -24,6 +24,7 @@
 		5D0527692265DB1B0099DB88 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0527682265DB1B0099DB88 /* NotificationViewController.m */; };
 		5D05276C2265DB1B0099DB88 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D05276A2265DB1B0099DB88 /* MainInterface.storyboard */; };
 		5D0527702265DB1B0099DB88 /* NotificationContent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5D0527622265DB1A0099DB88 /* NotificationContent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,8 @@
 		5D0527682265DB1B0099DB88 /* NotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		5D05276B2265DB1B0099DB88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		5D05276D2265DB1B0099DB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E95D5FA0226629EA00CA0D92 /* LocalNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalNotificationViewController.h; sourceTree = "<group>"; };
+		E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,10 +149,11 @@
 				5D052727225F39410099DB88 /* AppDelegate.m */,
 				5D052729225F39410099DB88 /* ViewController.h */,
 				5D05272A225F39410099DB88 /* ViewController.m */,
+				E95D5FA0226629EA00CA0D92 /* LocalNotificationViewController.h */,
+				E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */,
 				5D0527492264A4AA0099DB88 /* HBLogProfiler.h */,
 				5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */,
 				5D05274122606BA20099DB88 /* HBOAAlert */,
-				5D05274C226561A40099DB88 /* Resource */,
 				5D05272C225F39410099DB88 /* Main.storyboard */,
 				5D05272F225F39420099DB88 /* Assets.xcassets */,
 				5D052731225F39420099DB88 /* LaunchScreen.storyboard */,
@@ -177,13 +181,6 @@
 				5D05274222606BA20099DB88 /* HBOAAlertView.xib */,
 			);
 			path = HBOAAlert;
-			sourceTree = "<group>";
-		};
-		5D05274C226561A40099DB88 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 		5D052752226561F00099DB88 /* NotificationService */ = {
@@ -351,6 +348,7 @@
 				5D052728225F39410099DB88 /* AppDelegate.m in Sources */,
 				5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */,
 				5D05274B2264A4AA0099DB88 /* HBLogProfiler.m in Sources */,
+				E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
