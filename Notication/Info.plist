@@ -9,6 +9,10 @@
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Notication需要使用定位权限</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>请允许本应用使用定位，本应用将根据定位信息为您确定经纬度</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

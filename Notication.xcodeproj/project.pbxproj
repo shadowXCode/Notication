@@ -23,12 +23,14 @@
 		5D0527652265DB1A0099DB88 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0527642265DB1A0099DB88 /* UserNotificationsUI.framework */; };
 		5D0527692265DB1B0099DB88 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0527682265DB1B0099DB88 /* NotificationViewController.m */; };
 		5D0527702265DB1B0099DB88 /* NotificationContent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5D0527622265DB1A0099DB88 /* NotificationContent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5DB5345C226817CC009796DB /* NotificationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB5345B226817CC009796DB /* NotificationAction.m */; };
+		5DB5345E2268286A009796DB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DB5345D2268286A009796DB /* CoreLocation.framework */; };
+		5DB534612268401A009796DB /* MoLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB534602268401A009796DB /* MoLocationManager.m */; };
+		5DB5346422685B89009796DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DB5346622685B89009796DB /* Localizable.strings */; };
 		5DC796362266EAA900C9CECD /* logo_img_02@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796302266EAA900C9CECD /* logo_img_02@3x.png */; };
 		5DC796372266EAA900C9CECD /* logo_img_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796312266EAA900C9CECD /* logo_img_02@2x.png */; };
 		5DC796382266EAA900C9CECD /* sound01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796322266EAA900C9CECD /* sound01.wav */; };
 		5DC796392266EAA900C9CECD /* sound02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796332266EAA900C9CECD /* sound02.wav */; };
-		5DC7963A2266EAA900C9CECD /* logo_img_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796342266EAA900C9CECD /* logo_img_01@2x.png */; };
-		5DC7963B2266EAA900C9CECD /* logo_img_01@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796352266EAA900C9CECD /* logo_img_01@3x.png */; };
 		5DC796412267135700C9CECD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DC7963F2267135700C9CECD /* MainInterface.storyboard */; };
 		E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */; };
 		E95D5FA42267731600CA0D92 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D5FA32267731600CA0D92 /* CoreTelephony.framework */; };
@@ -96,12 +98,16 @@
 		5D0527672265DB1B0099DB88 /* NotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		5D0527682265DB1B0099DB88 /* NotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		5D05276D2265DB1B0099DB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DB5345A226817CC009796DB /* NotificationAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationAction.h; sourceTree = "<group>"; };
+		5DB5345B226817CC009796DB /* NotificationAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationAction.m; sourceTree = "<group>"; };
+		5DB5345D2268286A009796DB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5DB5345F2268401A009796DB /* MoLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoLocationManager.h; sourceTree = "<group>"; };
+		5DB534602268401A009796DB /* MoLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoLocationManager.m; sourceTree = "<group>"; };
+		5DB5346522685B89009796DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5DC796302266EAA900C9CECD /* logo_img_02@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_02@3x.png"; sourceTree = "<group>"; };
 		5DC796312266EAA900C9CECD /* logo_img_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_02@2x.png"; sourceTree = "<group>"; };
 		5DC796322266EAA900C9CECD /* sound01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound01.wav; sourceTree = "<group>"; };
 		5DC796332266EAA900C9CECD /* sound02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound02.wav; sourceTree = "<group>"; };
-		5DC796342266EAA900C9CECD /* logo_img_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_01@2x.png"; sourceTree = "<group>"; };
-		5DC796352266EAA900C9CECD /* logo_img_01@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_img_01@3x.png"; sourceTree = "<group>"; };
 		5DC796402267135700C9CECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E95D5FA0226629EA00CA0D92 /* LocalNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalNotificationViewController.h; sourceTree = "<group>"; };
 		E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationViewController.m; sourceTree = "<group>"; };
@@ -116,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DB5345E2268286A009796DB /* CoreLocation.framework in Frameworks */,
 				E95D5FA92267756300CA0D92 /* SystemConfiguration.framework in Frameworks */,
 				E95D5FA42267731600CA0D92 /* CoreTelephony.framework in Frameworks */,
 				5D052740226038740099DB88 /* UserNotifications.framework in Frameworks */,
@@ -172,10 +179,14 @@
 				5D05272A225F39410099DB88 /* ViewController.m */,
 				E95D5FA0226629EA00CA0D92 /* LocalNotificationViewController.h */,
 				E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */,
+				5DB5345A226817CC009796DB /* NotificationAction.h */,
+				5DB5345B226817CC009796DB /* NotificationAction.m */,
 				5D0527492264A4AA0099DB88 /* HBLogProfiler.h */,
 				5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */,
 				E95D5FA52267751900CA0D92 /* HBOAReachability.h */,
 				E95D5FA62267751900CA0D92 /* HBOAReachability.m */,
+				5DB5345F2268401A009796DB /* MoLocationManager.h */,
+				5DB534602268401A009796DB /* MoLocationManager.m */,
 				5DC7962F2266EAA900C9CECD /* Resource */,
 				5D05274122606BA20099DB88 /* HBOAAlert */,
 				5D05272C225F39410099DB88 /* Main.storyboard */,
@@ -184,6 +195,7 @@
 				5D052734225F39420099DB88 /* Info.plist */,
 				5D052735225F39420099DB88 /* main.m */,
 				5D05274822606F140099DB88 /* PrefixHeader.pch */,
+				5DB5346622685B89009796DB /* Localizable.strings */,
 			);
 			path = Notication;
 			sourceTree = "<group>";
@@ -191,6 +203,7 @@
 		5D05273E226038730099DB88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DB5345D2268286A009796DB /* CoreLocation.framework */,
 				E95D5FA82267756300CA0D92 /* SystemConfiguration.framework */,
 				E95D5FA32267731600CA0D92 /* CoreTelephony.framework */,
 				5D05273F226038740099DB88 /* UserNotifications.framework */,
@@ -237,8 +250,6 @@
 				5DC796312266EAA900C9CECD /* logo_img_02@2x.png */,
 				5DC796322266EAA900C9CECD /* sound01.wav */,
 				5DC796332266EAA900C9CECD /* sound02.wav */,
-				5DC796342266EAA900C9CECD /* logo_img_01@2x.png */,
-				5DC796352266EAA900C9CECD /* logo_img_01@3x.png */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -363,10 +374,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DC7963A2266EAA900C9CECD /* logo_img_01@2x.png in Resources */,
 				5D052733225F39420099DB88 /* LaunchScreen.storyboard in Resources */,
+				5DB5346422685B89009796DB /* Localizable.strings in Resources */,
 				5DC796372266EAA900C9CECD /* logo_img_02@2x.png in Resources */,
-				5DC7963B2266EAA900C9CECD /* logo_img_01@3x.png in Resources */,
 				5DC796392266EAA900C9CECD /* sound02.wav in Resources */,
 				5DC796362266EAA900C9CECD /* logo_img_02@3x.png in Resources */,
 				5DC796382266EAA900C9CECD /* sound01.wav in Resources */,
@@ -398,10 +408,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DB534612268401A009796DB /* MoLocationManager.m in Sources */,
 				5D05272B225F39410099DB88 /* ViewController.m in Sources */,
 				5D052736225F39420099DB88 /* main.m in Sources */,
 				5D052728225F39410099DB88 /* AppDelegate.m in Sources */,
 				5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */,
+				5DB5345C226817CC009796DB /* NotificationAction.m in Sources */,
 				E95D5FA72267751A00CA0D92 /* HBOAReachability.m in Sources */,
 				5D05274B2264A4AA0099DB88 /* HBLogProfiler.m in Sources */,
 				E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */,
@@ -456,6 +468,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		5DB5346622685B89009796DB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DB5346522685B89009796DB /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		5DC7963F2267135700C9CECD /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -471,6 +491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -530,6 +551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

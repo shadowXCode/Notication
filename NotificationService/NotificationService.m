@@ -24,6 +24,7 @@
     
     // Modify the notification content here...
     self.bestAttemptContent.body = [NSString stringWithFormat:@"啊啊啊[modified]：%@", self.bestAttemptContent.body];
+    self.bestAttemptContent.launchImageName = @"CustomLaunchImage";
     
     //设置category 要保证注册的categorys中有self.bestAttemptContent.categoryIdentifier，远程推送过来payload数据会自动转换为UNNotificationContent对象
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:[NotificationService notificationCategoryExampleWithIdentifier:[NotificationService inviteCategoryIdentifier]]]];
@@ -130,8 +131,8 @@
      UNNotificationCategoryOptions各种类型下含义
      UNNotificationCategoryOptionCustomDismissAction 是否在action执行完后回调UNUserNotificationCenterDelegate
      UNNotificationCategoryOptionAllowInCarPlay 是否允许在CarPlay中进行此类通知
-     UNNotificationCategoryOptionHiddenPreviewsShowTitle    如果用户已关闭预览，是否显示标题 ？待实践
-     UNNotificationCategoryOptionHiddenPreviewsShowSubtitle 如果用户已关闭预览，是否显示副标题 ?待实践
+     UNNotificationCategoryOptionHiddenPreviewsShowTitle    如果用户已关闭预览，是否显示标题（当用户在该应用通知设置--显示预览 选择从不时有效；当选择从不选择，这时候设置该option就会强制显示标题）
+     UNNotificationCategoryOptionHiddenPreviewsShowSubtitle 如果用户已关闭预览，是否显示副标题 （当用户在该应用通知设置--显示预览 选择从不时有效；当选择从不选择，这时候设置该option就会强制显示副标题）
      */
     UNNotificationCategory *notificationCategory = [UNNotificationCategory categoryWithIdentifier:identifier actions:@[actionA,actionB,inputAction,cancelAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
     return notificationCategory;

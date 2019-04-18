@@ -31,10 +31,17 @@
 + (void)clearedNotificationDirectory {
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *directoryPath = [documentPath stringByAppendingPathComponent:[self notificationDirectoryName]];
-    NSError *error = nil;
-    [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:&error];
-    if (error) {
-        NSLog(@"%@ : %@",NSStringFromSelector(_cmd),error.localizedDescription);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:&error];
+        if (error) {
+            NSString *errorLog = [NSString stringWithFormat:@"%@ : %@",NSStringFromSelector(_cmd),error.localizedDescription];
+            [HBOAAlertView alertMessage:errorLog];
+        } else {
+            [HBOAAlertView alertMessage:@"已清除沙盒日志"];
+        }
+    } else {
+        [HBOAAlertView alertMessage:@"目录不存在"];
     }
 }
 

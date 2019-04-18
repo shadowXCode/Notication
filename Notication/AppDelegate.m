@@ -50,6 +50,14 @@
     }
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
+    
+    //阻塞2s主线程
+    CFRunLoopRef ref = CFRunLoopGetCurrent();
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CFRunLoopStop(ref);
+    });
+    CFRunLoopRun();
+    
     return YES;
 }
 

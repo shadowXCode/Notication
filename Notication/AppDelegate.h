@@ -17,13 +17,13 @@
  5、远程推送数据结构解读
  6、本地推送
  7、查漏补缺，探讨推送
- 8、接入极光推送
+ 8、接入极光推送，第二种证书使用
 */
 
 /**
  推送的json数据以下简称payload
  发送一个远程推送到用户设备通过payload传递信息，推送类型有alert、sound、badge、silent四种均通过payload数据进行控制。
- 如果音频大小超过5k、payload数据大小超过4k，则不会进行推送。
+ 如果payload数据大小超过4k，则不会进行推送。
  payload数据结构中除了苹果定义的keys，开发者可以自定义keys，自定义的keys在UNNotificationContent中userInfo属性中。
  sound字段中的音频文件必须是在设备中已存在的或者app的bundle中存在的。
  避免在推送payload中放入一些敏感字段，防止信息泄露；如果迫不得已，需要对该信息进行加密。
@@ -36,16 +36,11 @@
  本地推送和远程推送同时都可支持附带Media Attachments。不过远程通知需要实现通知服务扩展UNNotificationServiceExtension，在service extension里面去下载attachment，但是需要注意，service extension会限制下载的时间（30s），并且下载的文件大小也会同样被限制
  关于Media Attachments限制可参考：https://developer.apple.com/documentation/usernotifications/unnotificationattachment?preferredLanguage=occ
  
- 
- 
+
  1、怎么设置进行通知栏消息合并、分组，有哪些限制？
  iOS12才能进行通知分组，在通知设置页面可以进行设定。在自动模式下会按照UNMutableNotificationContent中的threadIdentifier进行分组
  2、为何debug模式下远程推送侧滑没有管理按钮？
  iOS12新特性
- 3、trigger类型整理
- 
- 4、payload中系统默认字段整理以及含义
- 
  */
 
 NS_ASSUME_NONNULL_BEGIN

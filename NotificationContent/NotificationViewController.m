@@ -41,15 +41,21 @@
         [self.imageView setImage:[UIImage imageWithData:imageData]];
         //stopAccessingSecurityScopedResource 停止应用程序沙盒内rul安全资源访问
         [attachment.URL stopAccessingSecurityScopedResource];
+    } else {
+        //当附件没有下载成功导致不存在时，调整展示大小
+        self.preferredContentSize = CGSizeMake(self.view.bounds.size.width, 0.1);
     }
 }
 
+/**
+ 在content extension中响应action时也可以进行网络请求，来处理部分业务。因为每个扩展都相当于一个独立app，只是依附于主app上共用同一个沙盒，所以在info.plist中开启App Transport Security Settings --> Allow Arbitrary Loads == YES 也是有一定必要。
+ */
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption option))completion;{
 
     if ([response.actionIdentifier isEqualToString:@"ActionA"]) {
-        [self loadAttachmentForUrlString:@"http://www.fotor.com/images2/features/photo_effects/e_bw.jpg" completionHandler:^{
-            
-        }];
+//        [self loadAttachmentForUrlString:@"http://www.fotor.com/images2/features/photo_effects/e_bw.jpg" completionHandler:^{
+//
+//        }];
         completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
     } else if ([response.actionIdentifier isEqualToString:@"ActionB"]) {
         completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
