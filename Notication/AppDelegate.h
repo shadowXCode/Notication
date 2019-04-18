@@ -41,7 +41,9 @@
  1、怎么设置进行通知栏消息合并、分组，有哪些限制？
  iOS12才能进行通知分组，在通知设置页面可以进行设定。在自动模式下会按照UNMutableNotificationContent中的threadIdentifier进行分组
  2、为何debug模式下远程推送侧滑没有管理按钮？
+ iOS12新特性
  3、trigger类型整理
+ 
  4、payload中系统默认字段整理以及含义
  
  */

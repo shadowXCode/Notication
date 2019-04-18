@@ -10,6 +10,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 #import <UserNotifications/UserNotifications.h>
 #endif
+#import <CoreTelephony/CTCellularData.h>
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -22,7 +23,15 @@
  */
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
+    //开启网络监控，在iOS10下会自动向用户请求网络通信权限。如果Notification Service Extension中需要进行网络请求，没有网络权限将会得到“The Internet connection appears to be offline.”错误信息。
+    [[HBOAReachability sharedInstance] startMonitoring];
+    [[HBOAReachability sharedInstance] setReachabilityStatusChangeBlock:^(HBOANetworkStatus status) {
+        
+    }];
+    
+    
+    //通知注册
     NSDictionary *notificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (notificationUserInfo) {
         NSLog(@"%@ : %@",NSStringFromSelector(_cmd),notificationUserInfo);
@@ -33,15 +42,14 @@
 
     [self registerRemoteNotifications];
 
-
     if (@available(iOS 10.0, *)) {
         //获取通知配置信息
         [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
 
         }];
     }
-
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     return YES;
 }
 
@@ -72,8 +80,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-
 
 
 

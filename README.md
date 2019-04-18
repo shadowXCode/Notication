@@ -19,29 +19,14 @@ iOS Notification
 
 [iOS App Extension入门](https://www.jianshu.com/p/8cf08db29356)
 
+[iOS10推送通知整理总结](https://www.jianshu.com/p/f465fde82c4b)
+
+[iOS Push的前世今生](https://juejin.im/entry/5a9118d2f265da4e6f17fcfc)
+
+[iOS图片推送的一些开发小Tips](https://www.jianshu.com/p/0ab721604877)
 
 
 ```json
-{
-    "aps": {
-        "alert": {
-            "title": "Title...",
-            "subtitle": "Subtitle...",
-            "body": "Body..."
-        },
-        "sound": "default",
-        "badge": 1,
-        "mutable-content": 1,
-	    "content-available":1,
-        "category": "UNInviteCategoryIdentifier"
-    },
-    "msgid": "123",
-    "media": {
-        "type": "image",
-        "url": "https://www.fotor.com/images2/features/photo_effects/e_bw.jpg"
-    }
-}
-
 {
     "aps": {
         "alert": {
@@ -58,16 +43,5 @@ iOS Notification
         "url": "https://www.fotor.com/images2/features/photo_effects/e_bw.jpg"
     }
 }
-
-
-
-com.ershuai.notication
-com.ershuai.notication.NotificationService
-com.ershuai.notication.NotificationContent
-
-
-com.touker.HBStockWarning
-com.touker.HBStockWarning.Service
-com.touker.HBStockWarning.Content
 
 ```

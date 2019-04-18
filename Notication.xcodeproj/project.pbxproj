@@ -31,6 +31,9 @@
 		5DC7963B2266EAA900C9CECD /* logo_img_01@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC796352266EAA900C9CECD /* logo_img_01@3x.png */; };
 		5DC796412267135700C9CECD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DC7963F2267135700C9CECD /* MainInterface.storyboard */; };
 		E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */; };
+		E95D5FA42267731600CA0D92 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D5FA32267731600CA0D92 /* CoreTelephony.framework */; };
+		E95D5FA72267751A00CA0D92 /* HBOAReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E95D5FA62267751900CA0D92 /* HBOAReachability.m */; };
+		E95D5FA92267756300CA0D92 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D5FA82267756300CA0D92 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +105,10 @@
 		5DC796402267135700C9CECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E95D5FA0226629EA00CA0D92 /* LocalNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalNotificationViewController.h; sourceTree = "<group>"; };
 		E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationViewController.m; sourceTree = "<group>"; };
+		E95D5FA32267731600CA0D92 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		E95D5FA52267751900CA0D92 /* HBOAReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBOAReachability.h; sourceTree = "<group>"; };
+		E95D5FA62267751900CA0D92 /* HBOAReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBOAReachability.m; sourceTree = "<group>"; };
+		E95D5FA82267756300CA0D92 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95D5FA92267756300CA0D92 /* SystemConfiguration.framework in Frameworks */,
+				E95D5FA42267731600CA0D92 /* CoreTelephony.framework in Frameworks */,
 				5D052740226038740099DB88 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +174,8 @@
 				E95D5FA1226629EA00CA0D92 /* LocalNotificationViewController.m */,
 				5D0527492264A4AA0099DB88 /* HBLogProfiler.h */,
 				5D05274A2264A4AA0099DB88 /* HBLogProfiler.m */,
+				E95D5FA52267751900CA0D92 /* HBOAReachability.h */,
+				E95D5FA62267751900CA0D92 /* HBOAReachability.m */,
 				5DC7962F2266EAA900C9CECD /* Resource */,
 				5D05274122606BA20099DB88 /* HBOAAlert */,
 				5D05272C225F39410099DB88 /* Main.storyboard */,
@@ -180,6 +191,8 @@
 		5D05273E226038730099DB88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E95D5FA82267756300CA0D92 /* SystemConfiguration.framework */,
+				E95D5FA32267731600CA0D92 /* CoreTelephony.framework */,
 				5D05273F226038740099DB88 /* UserNotifications.framework */,
 				5D0527642265DB1A0099DB88 /* UserNotificationsUI.framework */,
 			);
@@ -389,6 +402,7 @@
 				5D052736225F39420099DB88 /* main.m in Sources */,
 				5D052728225F39410099DB88 /* AppDelegate.m in Sources */,
 				5D05274622606BA20099DB88 /* HBOAAlertView.m in Sources */,
+				E95D5FA72267751A00CA0D92 /* HBOAReachability.m in Sources */,
 				5D05274B2264A4AA0099DB88 /* HBLogProfiler.m in Sources */,
 				E95D5FA2226629EA00CA0D92 /* LocalNotificationViewController.m in Sources */,
 			);
@@ -617,7 +631,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.Service;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -636,7 +650,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.Service;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -655,7 +669,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.NotificationContent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.Content;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -674,7 +688,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.NotificationContent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ershuai.notication.Content;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

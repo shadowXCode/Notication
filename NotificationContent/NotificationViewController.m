@@ -47,20 +47,36 @@
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response completionHandler:(void (^)(UNNotificationContentExtensionResponseOption option))completion;{
 
     if ([response.actionIdentifier isEqualToString:@"ActionA"]) {
-
+        [self loadAttachmentForUrlString:@"http://www.fotor.com/images2/features/photo_effects/e_bw.jpg" completionHandler:^{
+            
+        }];
+        completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
     } else if ([response.actionIdentifier isEqualToString:@"ActionB"]) {
-
+        completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
     } else if ([response.actionIdentifier isEqualToString:@"InputAction"]) {
 //        UNTextInputNotificationResponse *textInputResponse = (UNTextInputNotificationResponse *)response;
-
+        completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
     } else if ([response.actionIdentifier isEqualToString:@"CancelAction"]) {
-
+        completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
     }
-    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);//移除通知弹框，并且执行事件（会唤醒app执行事件，会传递UNTextInputNotificationResponse）
+//    completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);//移除通知弹框，并且执行事件（会唤醒app执行事件，会传递UNTextInputNotificationResponse）
     //    completion(UNNotificationContentExtensionResponseOptionDismiss);//移除通知弹框，不做任何操作（不会唤醒app执行事件）
     //    completion(UNNotificationContentExtensionResponseOptionDoNotDismiss);//不做任何操作（关闭通知时会唤醒app执行事件，不会传递UNTextInputNotificationResponse；哪怕对应action的options设定为UNNotificationActionOptionForeground也不会响应）
 }
 
+
+- (void)loadAttachmentForUrlString:(NSString *)urlStr completionHandler:(void (^)(void))compeltionHandler {
+    NSURL *attachmentURL = [NSURL URLWithString:urlStr];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    [[session downloadTaskWithURL:attachmentURL completionHandler:^(NSURL *temporaryFileLocation, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"加载多媒体失败 %@", error.localizedDescription);
+        } else {
+            NSLog(@"加载多媒体成功");
+        }
+        compeltionHandler();
+    }] resume];
+}
 
 
 @end
