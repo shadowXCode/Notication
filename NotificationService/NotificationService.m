@@ -23,8 +23,7 @@
     self.bestAttemptContent = [request.content mutableCopy];
     
     // Modify the notification content here...
-    self.bestAttemptContent.body = [NSString stringWithFormat:@"啊啊啊[modified]：%@", self.bestAttemptContent.body];
-    self.bestAttemptContent.launchImageName = @"CustomLaunchImage";
+    self.bestAttemptContent.body = [NSString stringWithFormat:@"[modified]：%@", self.bestAttemptContent.body];
     
     //设置category 要保证注册的categorys中有self.bestAttemptContent.categoryIdentifier，远程推送过来payload数据会自动转换为UNNotificationContent对象
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObject:[NotificationService notificationCategoryExampleWithIdentifier:[NotificationService inviteCategoryIdentifier]]]];

@@ -108,12 +108,10 @@
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay) completionHandler:^(BOOL granted, NSError *_Nullable error) {
-            if (granted) {
-                //请求推送授权成功，下面注册远程推送
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                });
-            }
+            //请求推送授权成功，下面注册远程推送。如果需要注册远程推送的话，无论用户是否授权都建议注册；否则一旦用户在设置页面开启推送，必须重新app才能注册成功。
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            });
         }];
     } else {
         /**
@@ -121,6 +119,7 @@
          如果iOS10及以上系统还用该方法进行注册通知也是可以，但是APNs注册就比较乱了，会忽略用户授权直接注册成功APNs返回DeviceToken，当用户授权成功了还会重复的回调application:didRegisterForRemoteNotificationsWithDeviceToken方法。不建议这样使用。
          */
         UIUserNotificationType types = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge);
+        //iOS8和iOS9通过这种方式设置categorys，categorys生成&使用方式与iOS10类似
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
         //注册远程推送
@@ -206,8 +205,7 @@
 
 //iOS>=10 中收到推送消息（远程/本地），遵守UNUserNotificationCenterDelegate。
 /**
- 处理app在前台运行时到达的通知，这是通知并未提示，当处理完成后执行completionHandler来确定通知样式
-
+ 处理app在前台运行时到达的通知，这时通知并未提示，当处理完成后执行completionHandler来确定通知样式
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 API_AVAILABLE(ios(10.0)){
@@ -219,7 +217,6 @@ API_AVAILABLE(ios(10.0)){
 }
 /**
  本地、远程推送，点击通知进入app或者点击通知上的自定义action时触发，会唤醒app进行事件处理
-
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 API_AVAILABLE(ios(10.0)){

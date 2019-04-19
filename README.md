@@ -29,7 +29,7 @@ iOS Notification
 [ios 推送通知（四）](https://www.zybuluo.com/evolxb/note/482251)
 
 
-payload数据结构
+payload数据结构示例
 ```json
 {
     "aps": {
@@ -49,7 +49,9 @@ payload数据结构
         "url": "https://www.fotor.com/images2/features/photo_effects/e_bw.jpg"
     }
 }
-
+```
+数据结构详细说明
+```js
 {
     "aps": {
         "alert": {//alert字段也支持字符串，因为在iOS10之前是仅有一个标题没有这么多扩展，例如："alert": "标题"
@@ -70,7 +72,7 @@ payload数据结构
         "mutable-content": 1,//设置为1，表示该通知会先会调起Notification Service Extension处理完后再进行通知
 	    "category": "UNInviteCategoryIdentifier",//只要是指Notification Content Extension中使用哪个category进行展示
         "thread-id": "threadIdentifier",//线程标识符，主要应用于iOS12及以后系统，进行通知分组
-        "launch-image": ""//用户通过通知进入应用时，使用这个文件（启动图文件或者storyboard文件）的启动图片。如果没有指定这个属性，系统会使用上次的应用快照或者Info.plist中UILaunchImageFile的图片或Default.png作为启动图片。暂未得到实践
+        "launch-image": ""//用户通过通知进入应用时，使用这个文件（启动图文件或者storyboard文件）的启动图片。如果没有指定这个属性，系统会使用上次的应用快照或者Info.plist中UILaunchImageFile的图片或Default.png作为启动图片。该字段不适用于iOS，仅用于macos和tvos
     },
     
     //除aps字段中为官方定义keys外，以下字段都可以自定义
