@@ -52,11 +52,11 @@
     
     
     //阻塞2s主线程
-    CFRunLoopRef ref = CFRunLoopGetCurrent();
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        CFRunLoopStop(ref);
-    });
-    CFRunLoopRun();
+//    CFRunLoopRef ref = CFRunLoopGetCurrent();
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        CFRunLoopStop(ref);
+//    });
+//    CFRunLoopRun();
     
     return YES;
 }
@@ -102,12 +102,25 @@
  权限申请：
  iOS10以后，权限申请通过requestAuthorizationWithOptions进行
  iOS8---iOS10以下，权限申请回调通过UIApplicationDelegate的- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings代理方法进行告知应用
+ 
+ UNAuthorizationOptions授权类型：
+ UNAuthorizationOptionBadge：更新应用角标的权限
+ UNAuthorizationOptionSound：通知到达时的提示音权限
+ UNAuthorizationOptionAlert：通知到达时弹窗权限
+ UNAuthorizationOptionCarPlay：车载设备通知权限
+ UNAuthorizationOptionCriticalAlert：iOS12引入；发送重要通知的权限，重要通知会无视静音和勿打扰模式，通知到达时会有提示音，此权限要通过苹果审核
+ UNAuthorizationOptionProvisional：临时授权----无需用户授权也能给用户推送的新机制，默认为隐式推送（仅在通知中心显示通知，会包含两个按钮：保持、关闭。）
+ UNAuthorizationOptionProvidesAppNotificationSettings：iOS12 通知管理->关闭 / 通知设置 页面会出现：在“Notication”中配置...选项，点击进入应用。主要是进入应用自身的通知设置页面
  */
 - (void)registerRemoteNotifications {
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay) completionHandler:^(BOOL granted, NSError *_Nullable error) {
+        UNAuthorizationOptions authOptions = UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert;
+        if (@available(iOS 12.0, *)) {
+            authOptions = UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvisional;
+        }
+        [center requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError *_Nullable error) {
             //请求推送授权成功，下面注册远程推送。如果需要注册远程推送的话，无论用户是否授权都建议注册；否则一旦用户在设置页面开启推送，必须重新app才能注册成功。
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[UIApplication sharedApplication] registerForRemoteNotifications];
@@ -227,7 +240,19 @@ API_AVAILABLE(ios(10.0)){
     completionHandler();
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
-
+/**
+ iOS12 通知管理->关闭 / 通知设置 页面会出现：在“Notication”中配置...选项，点击进入应用。主要是进入应用自身的通知设置页面
+ 该方法调用需要在授权的时候增加这个选项 UNAuthorizationOptionProvidesAppNotificationSettings
+ */
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification __IOS_AVAILABLE(12.0) __OSX_AVAILABLE(10.14) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;{
+    if (notification) {
+        //从通知管理界面进入应用
+        
+    } else {
+        //从通知设置页面进入应用
+        
+    }
+}
 
 
 #pragma mark - iOS8、iOS9本地、远程通知action事件回调处理
