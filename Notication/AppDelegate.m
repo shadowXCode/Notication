@@ -193,7 +193,7 @@
  告诉应用程序收到远程推送通知，有需要提取的数据
  此方法与application:didReceiveRemoteNotification（简称方法一）还是有些不同，当两个方法都实现的情况下，方法一并不会被调用，所以iOS8--iOS10以下系统适配只需要实现该方法即可。
  注意：当用户通过点击通知栏的通知打开app，系统还是会再次调用该方法，以方便开发者处理事件
- 系统版本>=iOS10，如果没有实现UNUserNotificationCenterDelegate代理则会通过该代理进行远程通知回调；如果实现了UNUserNotificationCenterDelegate，则不会调用该方法。
+ 系统版本>=iOS10，如果没有实现UNUserNotificationCenterDelegate代理则会通过该代理进行远程通知回调（app在前台收到通知回调，顶部没有alert告知；app在后台顶部会弹出alert，点击alert调用）；如果实现了UNUserNotificationCenterDelegate，则不会调用该方法。
 
  当推送内容设定了"content-available" : 1，会调用该代理方法，哪怕app进程不存在也会唤醒app（限制30s）
  需要在Capabilities中开启Background Modes勾选Remote notifications
@@ -247,10 +247,10 @@ API_AVAILABLE(ios(10.0)){
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification __IOS_AVAILABLE(12.0) __OSX_AVAILABLE(10.14) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;{
     if (notification) {
         //从通知管理界面进入应用
-        
+
     } else {
         //从通知设置页面进入应用
-        
+
     }
 }
 

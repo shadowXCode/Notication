@@ -15,6 +15,7 @@ iOS Notification
 [iOS 10 消息推送（UserNotifications）秘籍总结（二）](https://www.jianshu.com/p/81c6bd16c7ac)
 
 [APNs Auth Key Token 验证模式](https://www.jianshu.com/p/b700f0237b0e)
+这种推送方式也需要开启对应推送权限，在开发者账号的appid中证书会显示警告，可以忽略。
 
 [WWDC 2018：iOS 12 通知的新特性](https://juejin.im/post/5b1b7c3de51d4506ca62d787)
 
