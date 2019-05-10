@@ -18,6 +18,11 @@
 
 @implementation AppDelegate
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    return YES;
+}
+
 /**
  程序启动调用，当用户通过点击通知图标进入程序时可通过launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]进行获取推送消息，不建议使用此方法处理通知。
  */

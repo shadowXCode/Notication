@@ -30,6 +30,43 @@ iOS Notification
 [ios 推送通知（四）](https://www.zybuluo.com/evolxb/note/482251)
 
 
+
+
+
+
+## 远程推送原理，推送证书配置的两种方式
+### 原理
+iOS app大多数都是基于client/server模式开发的，client就是安装在我们设备上的app，server就是对应远程服务器，主要给app提供数据，也被成为Provider。那么当app处于terminate状态时，当client与server断开时，就需要通过APNs（Apple Push Notification service）进行通信。
+
+推送消息传输路径： Provider-APNs-Client App
+
+我们的设备联网时（无论是蜂窝联网还是Wi-Fi联网）都会与苹果的APNs服务器建立一个长连接（persistent IP connection），当Provider推送一条通知的时候，这条通知并不是直接推送给了我们的设备，而是先推送到苹果的APNs服务器上面，而苹果的APNs服务器再通过与设备建立的长连接进而把通知推送到我们的设备上（如下图）。而当设备处于非联网状态的时候，APNs服务器会保留Provider所推送的最后一条通知，当设备转换为连网状态时，APNs则把其保留的最后一条通知推送给我们的设备；如果设备长时间处于非联网状态下，那么APNs服务器为其保存的最后一条通知也会丢失。Remote Notification必须要求设备连网状态下才能收到，并且太频繁的接收远程推送通知对设备的电池寿命是有一定的影响的。
+![](assets/notification/APNs_principle.png)
+
+### deviceToken
+当一个App注册接收远程通知时，系统会发送请求到APNs服务器，APNs服务器收到此请求会根据请求所带的key值生成一个独一无二的value值也就是所谓的deviceToken，而后APNs服务器会把此deviceToken包装成一个NSData对象发送到对应请求的App上。然后App把此deviceToken发送给我们自己的服务器，就是所谓的Provider。Provider收到deviceToken以后进行储存等相关处理，以后Provider给我们的设备推送通知的时候，必须包含此deviceToken。(参考下图理解)
+![](assets/notification/APNs_deviceToken_1.png)
+![](assets/notification/APNs_deviceToken_2.png)
+
+* deviceToken是什么：deviceToken其实就是根据注册远程通知的时候向APNs服务器发送的Token key，Token key中包含了设备的UDID和App的Bundle Identifier，然后苹果APNs服务器根据此Token key编码生成一个deviceToken。deviceToken可以简单理解为就是包含了设备信息和应用信息的一串编码。
+
+* deviceToken作用：上面提到Provider推送消息的时候必须带有此deviceToken，然后此消息就根据deviceToken（UDID + App's Bundle Identifier）找到对应的设备以及该设备上对应的应用，从而把此推送消息推送给此应用。
+
+* deviceToken唯一性：苹果APNs的编码技术和deviceToken的独特作用保证了他的唯一性。唯一性并不是说一台设备上的一个应用程序永远只有一个不变的deviceToken，当用户升级系统、app重新安装的时候deviceToken是会变化的。
+
+### JSON payload
+远程推送主要通过JSON payload进行传递信息，payload中包含了不同推送类型，用户交互（alert、sound、badge）以及app自定义信息。（此处参考[官方文档](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)）
+![](assets/notification/APNs_interactions.png)
+
+一个基础的远程推送payload包含Apple-defined keys和自定义keys，你可以添加不同的keys在payload中；但是APNs也针对如下情况进行推送限制：
+   
+1. Voice over Internet Protocol (VoIP)推送最大payload不能超过5k(5120 bytes)
+2. 其他所有的远程推送，payload大小不能超过4k(4096 bytes)
+
+payload就是一个json数据结构，payload数据结构中除了苹果定义的keys，开发者可以自定义keys，自定义的keys在UNNotificationContent中userInfo属性中。
+sound字段中的音频文件必须是在设备中已存在的或者app的bundle中存在的。
+避免在推送payload中放入一些敏感字段，防止信息泄露；如果迫不得已，需要对该信息进行加密。
+
 payload数据结构示例
 ```json
 {
@@ -86,3 +123,10 @@ payload数据结构示例
 }
 
 ```
+
+### 证书配置 - [Certificate-Based Connection](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns)
+
+这种证书配置比较常见，通过应用App ID创建推送SSL证书，下载证书导出对应的P12文件进行推送。
+![](assets/notification/APNs_SSL_Certificate.png)
+
+证书通过应用程序的Bundle Identifier进行绑定。还必须将证书绑定到证书签名请求(CSR)，这是用于
