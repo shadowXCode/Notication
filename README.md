@@ -32,8 +32,6 @@ iOS Notification
 
 
 
-
-
 ## 远程推送原理，推送证书配置的两种方式
 ### 原理
 iOS app大多数都是基于client/server模式开发的，client就是安装在我们设备上的app，server就是对应远程服务器，主要给app提供数据，也被成为Provider。那么当app处于terminate状态时，当client与server断开时，就需要通过APNs（Apple Push Notification service）进行通信。
@@ -54,7 +52,7 @@ iOS app大多数都是基于client/server模式开发的，client就是安装在
 
 * deviceToken唯一性：苹果APNs的编码技术和deviceToken的独特作用保证了他的唯一性。唯一性并不是说一台设备上的一个应用程序永远只有一个不变的deviceToken，当用户升级系统、app重新安装的时候deviceToken是会变化的。
 
-### JSON payload
+### JSON payload （远程推送数据结构解读）
 远程推送主要通过JSON payload进行传递信息，payload中包含了不同推送类型，用户交互（alert、sound、badge）以及app自定义信息。（此处参考[官方文档](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)）
 ![](assets/notification/APNs_interactions.png)
 
@@ -67,7 +65,7 @@ payload就是一个json数据结构，payload数据结构中除了苹果定义�
 sound字段中的音频文件必须是在设备中已存在的或者app的bundle中存在的。
 避免在推送payload中放入一些敏感字段，防止信息泄露；如果迫不得已，需要对该信息进行加密。
 
-payload数据结构示例
+payload数据结构示例（可通过推送测试工具[NWPusher](https://github.com/noodlewerk/NWPusher.git)，参考Demo进行推送测试）
 ```json
 {
     "aps": {
@@ -127,6 +125,128 @@ payload数据结构示例
 ### 证书配置 - [Certificate-Based Connection](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns)
 
 这种证书配置比较常见，通过应用App ID创建推送SSL证书，下载证书导出对应的P12文件进行推送。
-![](assets/notification/APNs_SSL_Certificate.png)
+![](assets/notification/APNs_SSL_Certificate_1.png)
 
-证书通过应用程序的Bundle Identifier进行绑定。还必须将证书绑定到证书签名请求(CSR)，这是用于
+证书通过应用程序的Bundle Identifier进行绑定。还必须将证书绑定到证书签名请求(CSR)，这是用于加密证书的私钥。证书本身会成为你与APNs交换的公钥。
+如果你的证书或私钥被盗用，你可以在开发者账户撤销该证书。
+
+与APN建议信任关系图：
+![](assets/notification/APNs_SSL_Certificate_2.png)
+
+
+### 证书配置 - [Token-Based Connection](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns)
+
+基于令牌的身份验证，比证书通信更快，因为它不需要APN查找与提供服务器相关的证书或其他信息。基于令牌的身份验证还有如下有点：
+
+1. 没有时效性
+2.  一个令牌可以用于多个App服务，不用为每个App单独配置（开发环境和生产环境）证书。
+3.  一个令牌可以用于该开发者账号下的所有App
+   
+从开发者账号中申请Token：
+![](assets/notification/APNs_Token_Certificate.png)
+
+申请密钥时生成的文本文件(具有.p8文件扩展名，只能下载一次)以及创建Token时输入的密钥ID字符串，都要妥善保管。如果你怀疑你的Token被盗用，可以撤销并生成新的密钥；为了最大限度提高安全性，可以关闭所有此时与APN的HTTP/2链接，并在发出请求之前建议新的链接。
+
+基于Token推送认证方式，第三方推送都已支持；若想自己建立APNs通信可参考[官方文档](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns)
+
+
+## 远程推送注册、接收远程推送，代码解读（iOS8以上）
+### 推送注册
+```objc
+/**
+ 注册远程推送通知，同本地通知注册，不同的是远程推送通知授权成功时候需要调用：[[UIApplication sharedApplication] registerForRemoteNotifications];
+
+ 权限申请：
+ iOS10以后，权限申请通过requestAuthorizationWithOptions进行
+ iOS8---iOS10以下，权限申请回调通过UIApplicationDelegate的- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings代理方法进行告知应用
+ 
+ UNAuthorizationOptions授权类型：
+ UNAuthorizationOptionBadge：更新应用角标的权限
+ UNAuthorizationOptionSound：通知到达时的提示音权限
+ UNAuthorizationOptionAlert：通知到达时弹窗权限
+ UNAuthorizationOptionCarPlay：车载设备通知权限
+ UNAuthorizationOptionCriticalAlert：iOS12引入；发送重要通知的权限，重要通知会无视静音和勿打扰模式，通知到达时会有提示音，此权限要通过苹果审核
+ UNAuthorizationOptionProvisional：临时授权----无需用户授权也能给用户推送的新机制，默认为隐式推送（仅在通知中心显示通知，会包含两个按钮：保持、关闭。）
+ UNAuthorizationOptionProvidesAppNotificationSettings：iOS12 通知管理->关闭 / 通知设置 页面会出现：在“Notication”中配置...选项，点击进入应用。主要是进入应用自身的通知设置页面
+ */
+- (void)registerRemoteNotifications {
+    if (@available(iOS 10.0, *)) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        UNAuthorizationOptions authOptions = UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert;
+        if (@available(iOS 12.0, *)) {
+            authOptions = UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionProvisional;
+        }
+        [center requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError *_Nullable error) {
+            //请求推送授权成功，下面注册远程推送。如果需要注册远程推送的话，无论用户是否授权都建议注册；否则一旦用户在设置页面开启推送，必须重新app才能注册成功。
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            });
+        }];
+    } else {
+        /**
+         iOS8 --- iOS10之前注册远程通知方法
+         如果iOS10及以上系统还用该方法进行注册通知也是可以，但是APNs注册就比较乱了，会忽略用户授权直接注册成功APNs返回DeviceToken，当用户授权成功了还会重复的回调application:didRegisterForRemoteNotificationsWithDeviceToken方法。不建议这样使用。
+         */
+        UIUserNotificationType types = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge);
+        //iOS8和iOS9通过这种方式设置categorys，categorys生成&使用方式与iOS10类似
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        //注册远程推送
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+}
+
+```
+发起注册后需关注的代理方法：
+
+1. deviceToken获取
+```objc
+    /**
+ 注册APNs成功，并返回deviceToken
+ 只要应用启动注册通知成功，每次都会调用该方法
+ */
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // 获取并处理deviceToken
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"DeviceToken:%@\n", token);
+}
+
+/**
+ 注册APNs失败
+ 只要应用启动注册通知失败，每次都会调用该方法
+ */
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+
+}
+
+ ```
+2. 使用iOS8--iOS10以下注册方法注册，回调该代理进行处理
+```objc
+/**
+ 进入应用后如果没有注册通知，需要首先注册通知请求用户允许通知；一旦调用完注册方法，无论用户是否选择允许通知此刻都会调用该代理方法。
+ 只要应用启动注册通知，每次都会调用该方法
+ */
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings NS_DEPRECATED_IOS(8_0, 10_0, "Use UserNotifications Framework's -[UNUserNotificationCenter requestAuthorizationWithOptions:completionHandler:]") __TVOS_PROHIBITED;{
+
+}
+```
+
+### 接收远程推送
+
+
+
+### 如何进行后台静默推送，干一些事情
+
+
+## 推送扩展的作用
+推送扩展主要分为：
+
+1. Notification Service Extension
+2. 
+
+ 本地推送和远程推送同时都可支持附带Media Attachments(媒体附件)。不过远程通知需要实现通知服务扩展UNNotificationServiceExtension，在service extension里面去下载attachment，但是需要注意，service extension会限制下载的时间（30s），并且下载的文件大小也会同样被限制
+ 关于Media Attachments限制可参考[官方文档](https://developer.apple.com/documentation/usernotifications/unnotificationattachment?preferredLanguage=occ)
+
+## 本地推送
