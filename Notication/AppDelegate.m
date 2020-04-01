@@ -53,7 +53,6 @@
 
         }];
     }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     
     //阻塞2s主线程
@@ -86,7 +85,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 
@@ -159,9 +158,18 @@
  */
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // 获取并处理deviceToken
-    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"DeviceToken:%@\n", token);
+    NSString *hexToken = @"";
+    if (@available(iOS 13.0, *)) {
+        const unsigned *tokenBytes = [deviceToken bytes];
+        hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+                             ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+                             ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+                             ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+    } else {
+        hexToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+        hexToken = [hexToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+    NSLog(@"DeviceToken:%@\n", hexToken);
 }
 
 /**
@@ -214,16 +222,13 @@
  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler NS_AVAILABLE_IOS(7_0) {
     NSLog(@"%@ : %@",NSStringFromSelector(_cmd),userInfo);
-    [self handleRemoteNotification:userInfo completionHandler:^{
-        completionHandler(UIBackgroundFetchResultNewData);
-    } cmdStr:NSStringFromSelector(_cmd)];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [self handleRemoteNotification:userInfo completionHandler:completionHandler cmdStr:NSStringFromSelector(_cmd)];
 }
 
 
 //iOS>=10 中收到推送消息（远程/本地），遵守UNUserNotificationCenterDelegate。
 /**
- 处理app在前台运行时到达的通知，这时通知并未提示，当处理完成后执行completionHandler来确定通知样式
+ 处理app在前台运行时到达的通知，这时通知并未提示，当处理完成后执行completionHandler来确定通知样式，app不在前台时不会调用该代理。
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 API_AVAILABLE(ios(10.0)){
@@ -313,13 +318,14 @@ API_AVAILABLE(ios(10.0)){
 /**
  处理收到的远程通知
  */
-- (void)handleRemoteNotification:(nullable NSDictionary *)userInfo completionHandler:(nullable void (^)(void))completionHandler cmdStr:(NSString *)cmdStr {
+- (void)handleRemoteNotification:(nullable NSDictionary *)userInfo completionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler cmdStr:(NSString *)cmdStr {
     switch ([UIApplication sharedApplication].applicationState) {
         case UIApplicationStateActive:
         {
             //应用程序运行在前台，接收事件。
             NSLog(@"UIApplicationStateActive");
             [HBOAAlertView alertMessage:@"UIApplicationStateActive"];
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         }
             break;
         case UIApplicationStateInactive:
@@ -345,10 +351,7 @@ API_AVAILABLE(ios(10.0)){
         }
             break;
     }
-    if (completionHandler) {
-        completionHandler();
-    }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)saveText:(NSString *)text {

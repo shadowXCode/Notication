@@ -14,7 +14,7 @@ iOS Notification
 
 [iOS 10 消息推送（UserNotifications）秘籍总结（二）](https://www.jianshu.com/p/81c6bd16c7ac)
 
-[APNs Auth Key Token 验证模式](https://www.jianshu.com/p/b700f0237b0e)
+[APNs Auth Key Token 验证模式](https://www.jianshu.com/p/b700f0237b0e)  [Token的详解](https://kknews.cc/tech/6nyn8vv.html)
 这种推送方式也需要开启对应推送权限，在开发者账号的appid中证书会显示警告，可以忽略。
 
 [WWDC 2018：iOS 12 通知的新特性](https://juejin.im/post/5b1b7c3de51d4506ca62d787)
@@ -29,7 +29,9 @@ iOS Notification
 
 [ios 推送通知（四）](https://www.zybuluo.com/evolxb/note/482251)
 
+[iOS开发中的App Extension调试](https://www.jianshu.com/p/5a394b9c1851)
 
+[Nofication](https://onevcat.com/2016/08/notification/)
 
 
 ## 远程推送原理，推送证书配置的两种方式
@@ -57,7 +59,7 @@ iOS app大多数都是基于client/server模式开发的，client就是安装在
 ![](assets/notification/APNs_interactions.png)
 
 一个基础的远程推送payload包含Apple-defined keys和自定义keys，你可以添加不同的keys在payload中；但是APNs也针对如下情况进行推送限制：
-   
+
 1. Voice over Internet Protocol (VoIP)推送最大payload不能超过5k(5120 bytes)
 2. 其他所有的远程推送，payload大小不能超过4k(4096 bytes)
 
@@ -141,7 +143,7 @@ payload数据结构示例（可通过推送测试工具[NWPusher](https://github
 1. 没有时效性
 2.  一个令牌可以用于多个App服务，不用为每个App单独配置（开发环境和生产环境）证书。
 3.  一个令牌可以用于该开发者账号下的所有App
-   
+
 从开发者账号中申请Token：
 ![](assets/notification/APNs_Token_Certificate.png)
 
@@ -221,7 +223,7 @@ payload数据结构示例（可通过推送测试工具[NWPusher](https://github
 
 }
 
- ```
+```
 2. 使用iOS8--iOS10以下注册方法注册，回调该代理进行处理
 ```objc
 /**
@@ -250,3 +252,10 @@ payload数据结构示例（可通过推送测试工具[NWPusher](https://github
  关于Media Attachments限制可参考[官方文档](https://developer.apple.com/documentation/usernotifications/unnotificationattachment?preferredLanguage=occ)
 
 ## 本地推送
+
+
+## 问题
+
+1. 通知扩展分别在什么系统版本下支持？iOS 10
+2. Notification Service Extension 如何获取App的Core data数据库进行操作？
+3. 什么情况下使用Notification Service Extension？
